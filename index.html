@@ -3,11 +3,35 @@
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="appjs/dashboard.js"></script>
+    
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+    
   </head>
 
   <body>
-    <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
+    <center><h2 style="color: rgb(118, 151, 172)">kheApp</h2></center>
+    <div id='message' class="row" >
+      </div>
+      <div id='hashtag' class="row" >
+        </div>
+
+
+        <div id='reply' class="row" >
+          </div>
+          <div id='like' class="row" >
+            </div>
+            <div id='dislike' class="row" >
+              </div>
+        <div class="left">
+            <div ui-view=dashboard>
+            </div>
+            
+        </div>
+        
+        <script type="text/javascript"src="appjs/dashboard.js"></script>
+        <script type="text/javascript" src="appjs/dashmain.js"></script>
+        
+   
+
   </body>
 </html>
