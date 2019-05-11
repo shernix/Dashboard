@@ -1,5 +1,5 @@
 
-
+this.USERID;
 // Load the Visualization API and the piechart package.
 google.charts.load('current', {'packages': ['corechart']});
 
@@ -12,8 +12,9 @@ google.charts.setOnLoadCallback(drawChart2);
  google.charts.setOnLoadCallback(drawChart3);
  google.charts.setOnLoadCallback(drawChart4);
  google.charts.setOnLoadCallback(drawChart5);
-// google.charts.setOnLoadCallback(drawChart6);
-
+ google.charts.setOnLoadCallback(drawChart6);
+//google.charts.setOnLoadCallback(drawChart7);
+ google.charts.setOnLoadCallback(drawChart8);
 /// Number of messages per day
 function reformatData(jsonData){
     var temp= jsonData.DailyPosts;
@@ -31,7 +32,10 @@ function reformatData(jsonData){
     //console.log("Data: " + JSON.stringify(result));
     return result;
 }
-
+function updateUserId(id)
+{
+    console.log(id);
+}
 function drawChart() {
     var jsonData = $.ajax({
         url: "http://127.0.0.1:5000/kheApp/dashboard/NumberOfDailyPosts",
@@ -69,7 +73,7 @@ function drawChart() {
 function reformatData2(jsonData){
     
     var temp= jsonData.TrendingTopics;
-    //console.log("temp: " + JSON.stringify(temp));
+    console.log("temp: " + JSON.stringify(temp));
     var result = [];
     var i;
     var row;
@@ -228,7 +232,7 @@ function drawChart4() {
 
 function reformatData5(jsonData){
     var temp= jsonData.DailyDislikes;
-    console.log("temp: " + JSON.stringify(temp));
+    //console.log("temp: " + JSON.stringify(temp));
     var result = [];
     var i;
     var row;
@@ -239,7 +243,7 @@ function reformatData5(jsonData){
         dataElement.push(row.total);
         result.push(dataElement);
     }
-    console.log("Data: " + JSON.stringify(result));
+   // console.log("Data: " + JSON.stringify(result));
     return result;
 }
 
@@ -250,7 +254,7 @@ function drawChart5() {
         async: false
     }).responseText;
 
-   console.log("jsonData: " +JSON.stringify( JSON.parse(jsonData)));
+   //console.log("jsonData: " +JSON.stringify( JSON.parse(jsonData)));
 
     // Create our data table out of JSON data loaded from server.
     var data = new google.visualization.DataTable();
@@ -275,55 +279,172 @@ function drawChart5() {
     chart.draw(data, options);
 
 }
-// // Chart for Top users that send messages
-// function reformatData6(jsonData){
-//     var temp= jsonData.Replies;
-//     console.log("temp: " + JSON.stringify(temp));
-//     var result = [];
-//     var i;
-//     var row;
-//     for (i=0; i < temp.length; ++i){
-//         row= temp[i]
-//         dataElement = [];
-//         dataElement.push(row.user );
-//         dataElement.push(row.number);
-//         dataElement.push(row.date);
-//         result.push(dataElement);
-//     }
-//     console.log("Data: " + JSON.stringify(result));
-//     return result
-// }
-// ///Top 10 Active uses per day
-// function drawChart6() {
-//     var jsonData = $.ajax({
-//         url: "http://localhost:5000/dashboard/hashtags",
-//         dataType: "json",
-//         async: false
-//     }).responseText;
+// Chart for Top Users per Day
+function reformatData6(jsonData){
+    var temp= jsonData.ActiveUsers;
+    console.log("temp: " + JSON.stringify(temp));
+    var result = [];
+    var i;
+    var row;
+    for (i=0; i < temp.length; ++i){
+        row= temp[i]
+        dataElement = [];
+        dataElement.push(row.day );
+        dataElement.push(row.user);
+        dataElement.push(row.count);
+        result.push(dataElement);
+    }
+    //console.log("Data: " + JSON.stringify(result));
+    return result
+}
+///Top Active uses per day
+function drawChart6() {
+    var jsonData = $.ajax({
+        url: "http://127.0.0.1:5000/kheApp/dashboard/MostActiveUsersPerDay",
+        dataType: "json",
+        async: false
+    }).responseText;
 
-//     console.log("jsonData: " + JSON.parse(jsonData));
+    console.log("jsonData: " + JSON.parse(jsonData));
 
-//     // Create our data table out of JSON data loaded from server.
-//     var data = new google.visualization.DataTable();
-//     data.addColumn('string', 'hashtag');
-//     data.addColumn('number', 'usage');
-//     data.addRows(reformatData6(JSON.parse(jsonData)));
+    // Create our data table out of JSON data loaded from server.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Date');
+    data.addColumn({ type: 'string', id: 'User', role: 'annotation' })
+    data.addColumn('number', 'Posts');
+    data.addRows(reformatData6(JSON.parse(jsonData)));
 
-//     var options = {
-//         title: 'Trending Hashtags',
-//         chartArea: {width: '100%'},
-//         hAxis: {
-//             title: 'Total Number',
-//             minValue: 0
-//         },
-//         vAxis: {
-//             title: 'Times used'
-//         }
-//     };
+    var options = {
+        title: 'Most active users by date',
+        chartArea: {width: '100%'},
+        hAxis: {
+            title: 'Total Number',
+            minValue: 0
+        },
+        vAxis: {
+            title: 'Times used'
+        }
+    };
 
-//     var chart = new google.visualization.ColumnChart(document.getElementById('hashtags'));
+    var chart = new google.visualization.ColumnChart(document.getElementById('activeUser'));
 
-//     chart.draw(data, options);
+    chart.draw(data, options);
 
-// }
+}
 
+// Chart for Top Users per Day
+function reformatData7(jsonData){
+    var temp= jsonData.TotalPostsPerDayByUser;
+    console.log("temp: " + JSON.stringify(temp));
+    var result = [];
+    var i;
+    var row;
+    for (i=0; i < temp.length; ++i){
+        row= temp[i]
+        dataElement = [];
+        dataElement.push(row.day );
+        dataElement.push(row.user);
+        dataElement.push(row.count);
+        result.push(dataElement);
+    }
+    //console.log("Data: " + JSON.stringify(result));
+    return result
+}
+///Top Active uses per day
+
+document.getElementById("postsPerDayByUser").onclick = function() {
+
+   var uid = document.getElementById("postsuid").value;
+  console.log("new user fetch "+uid);
+
+
+    var jsonData = $.ajax({
+        url: "http://127.0.0.1:5000/kheApp/dashboard/PostsPerDayByUsers/"+uid,
+        dataType: "json",
+        async: false
+    }).responseText;
+
+    console.log("jsonData: " +JSON.stringify( JSON.parse(jsonData)));
+
+    // Create our data table out of JSON data loaded from server.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Date');
+    data.addColumn({ type: 'string', id: 'User', role: 'annotation' })
+    data.addColumn('number', 'Posts');
+    data.addRows(reformatData7(JSON.parse(jsonData)));
+
+    var options = {
+        title: 'Post Per day by user ',
+        chartArea: {width: '100%'},
+        hAxis: {
+            title: 'Total Number',
+            minValue: 0
+        },
+        vAxis: {
+            title: 'Times used'
+        }
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('activeId'));
+
+    chart.draw(data, options);
+
+}
+
+// Chart for Top Users per Day
+function reformatData8(jsonData){
+    var temp= jsonData.SpecialStats;
+    //console.log("temp: " + JSON.stringify(temp));
+    var result = [];
+    var i;
+    var row;
+    for (i=0; i < temp.length; ++i){
+        row= temp[i]
+        dataElement = [];
+       
+        dataElement.push(row.media);
+        dataElement.push(row.likes);
+        dataElement.push(row.dislikes);
+        dataElement.push(row.replies);
+
+        result.push(dataElement);
+    }
+    //console.log("Data: " + JSON.stringify(result));
+    return result
+}
+///Top Active uses per day
+function drawChart8() {
+    var jsonData = $.ajax({
+        url: "http://127.0.0.1:5000/kheApp/dashboard/LDRToAPhoto",
+        dataType: "json",
+        async: false
+    }).responseText;
+
+    console.log("jsonData: " + JSON.parse(jsonData));
+
+    // Create our data table out of JSON data loaded from server.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Media');
+    data.addColumn("number",'likess');
+    data.addColumn("number",'dislikes');
+    data.addColumn("number",'replies');
+    
+    data.addRows(reformatData8(JSON.parse(jsonData)));
+
+    var options = {
+        title: 'Photo Likes,Dislikes & Replies ',
+        chartArea: {width: '100%'},
+        hAxis: {
+            title: 'Total Number',
+            minValue: 0
+        },
+        vAxis: {
+            title: ''
+        }
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('pictureInfo'));
+
+    chart.draw(data, options);
+
+}
