@@ -53,7 +53,7 @@ function drawChart() {
 
     var options = {
         title: 'Messages per day',
-        chartArea: {width: '100%'},
+        chartArea: {width: '65%'},
         hAxis: {
             title: 'Total Number',
             minValue: 0
@@ -111,7 +111,7 @@ function drawChart2() {
 
     var options = {
         title: 'Trending Hashtags',
-        chartArea: {width: '60%'},
+        chartArea: {width: '65%'},
         hAxis: {
             title: 'Total Number',
             minValue: 0
@@ -162,7 +162,7 @@ function drawChart3() {
 
     var options = {
         title: 'Replies per day',
-        chartArea: {width: '100%'},
+        chartArea: {width: '65%'},
         hAxis: {
             title: 'Total Number',
             minValue: 0
@@ -213,7 +213,7 @@ function drawChart4() {
 
     var options = {
         title: 'Likes per day ',
-        chartArea: {width: '100%'},
+        chartArea: {width: '65%'},
         hAxis: {
             title: 'Dates',
             minValue: 0
@@ -264,7 +264,7 @@ function drawChart5() {
 
     var options = {
         title: 'Dislikes per day ',
-        chartArea: {width: '100%'},
+        chartArea: {width: '65%'},
         hAxis: {
             title: 'Dates',
             minValue: 0
@@ -316,7 +316,7 @@ function drawChart6() {
 
     var options = {
         title: 'Most active users by date',
-        chartArea: {width: '100%'},
+        chartArea: {width: '65%'},
         hAxis: {
             title: 'Total Number',
             minValue: 0
@@ -375,7 +375,7 @@ document.getElementById("postsPerDayByUser").onclick = function() {
 
     var options = {
         title: 'Post Per day by user ',
-        chartArea: {width: '100%'},
+        chartArea: {width: '65%'},
         hAxis: {
             title: 'Total Number',
             minValue: 0
@@ -433,7 +433,7 @@ function drawChart8() {
 
     var options = {
         title: 'Photo Likes,Dislikes & Replies ',
-        chartArea: {width: '100%'},
+        chartArea: {width: '65%'},
         hAxis: {
             title: 'Total Number',
             minValue: 0
