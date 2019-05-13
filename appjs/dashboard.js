@@ -425,7 +425,7 @@ function drawChart8() {
     // Create our data table out of JSON data loaded from server.
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Media');
-    data.addColumn("number",'likess');
+    data.addColumn("number",'likes');
     data.addColumn("number",'dislikes');
     data.addColumn("number",'replies');
     
